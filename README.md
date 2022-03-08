@@ -16,5 +16,5 @@ password:   &nbsp;      123456
 - Instructors can also CRUD courses, and enroll students in courses. 
 - The program handles edge cases such as Admins deleting Instructors with courses, and multiple errors are used to inform the user about their actions.
 
-Collaborators:Chaitanya Patel and Walter Evan Brown
+Collaborators: Chaitanya Patel and Walter Evan Brown
 ***********************************
