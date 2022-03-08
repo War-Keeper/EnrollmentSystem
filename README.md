@@ -1,5 +1,5 @@
 ***********************************
-Deployed app on heroku: [link](https://csc-517-program-2webrown2-cpat.herokuapp.com/)
+Deployed app on heroku: [link] (https://csc-517-program-2webrown2-cpat.herokuapp.com/)
 
 Admin Login:
 
