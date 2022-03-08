@@ -1,0 +1,33 @@
+
+
+
+<% if current_user.role == "admin" %>
+  <% if @user.role == "admin" %>
+
+    <h1>Editing Admin</h1>
+
+  <% elsif @user.role == "student" %>
+
+    <h1>Editing Student</h1>
+
+  <% else %>
+
+    <h1>Editing Instructor</h1>
+
+  <% end %>
+
+
+  <%= render "form", user: @user %>
+
+<% else %>
+  <h1>Unauthorized access to User</h1>
+<% end %>
+
+
+
+
+<br>
+
+<div>
+  <%= link_to "Back to homepage", root_path %>
+</div>

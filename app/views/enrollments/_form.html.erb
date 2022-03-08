@@ -1,0 +1,62 @@
+<%= form_with(model: [@course, enrollment], local: true) do |form| %>
+  <% if enrollment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
+
+      <ul>
+        <% enrollment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!--  <div>-->
+<!--    <input type="text_field" class="form-control" id=:student_id placeholder="Student ID">-->
+<!--  </div>-->
+<!--  <br>-->
+
+<!--  <div>-->
+<!--    <input type="text_field" class="form-control" id=:course_id placeholder="Course ID">-->
+<!--  </div>-->
+<!--  <br>-->
+  <% if current_user.role != "student" %>
+    <div>
+      <%= form.label "Student ID", style: "display: block" %>
+      <%= form.text_field :student_id %>
+    </div>
+
+    <br>
+
+    <div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+
+  <% else %>
+
+    <% @enrollments = @course.enrollments %>
+
+    <% if @enrollments.where(student_id: current_user.user_id).length < 1%>
+      <div>
+        <button class="btn btn-primary" type="submit">Enroll</button>
+      </div>
+
+    <div style="visibility: hidden">
+      <span>
+      <%= form.label "Your Student ID", style: "display: block" %>
+      <%= form.text_field :student_id, require: true, value:current_user.user_id, :readonly => true %>
+      </span>
+    </div>
+
+
+    <% else %>
+      <% @enrollment = @enrollments.where(student_id: current_user.user_id)[0]%>
+      <%= render 'enrollments/enrollment', enrollment: @enrollment %>
+
+    <% end %>
+
+  <% end %>
+
+
+
+<% end %>

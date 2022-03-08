@@ -1,0 +1,38 @@
+<div id="<%= dom_id user %>">
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th>Email</th>
+      <th>Role</th>
+      <th>UserID</th>
+      <th>Name</th>
+      <th>DateOfBirth</th>
+      <th>PhoneNumber</th>
+
+      <% if user.role == 'instructor' %>
+        <th>Department</th>
+      <% end %>
+
+      <% if user.role == 'student' %>
+        <th>Major</th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!--      <td><%#= link_to course.course_code + ": " + course.name , course %></td>-->
+    <td><%= user.email %></td>
+    <td><%= user.role %></td>
+    <td><%= user.user_id %></td>
+    <td><%= user.name %></td>
+    <td><%= user.date_of_birth %></td>
+    <td><%= user.phone_number %></td>
+    <% if user.role == 'instructor' %>
+      <td><%= user.department %></td>
+    <% end %>
+    <% if user.role == 'student' %>
+      <td><%= user.major %></td>
+    <% end %>
+    </tbody>
+  </table>
+</div>

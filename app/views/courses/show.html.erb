@@ -1,0 +1,33 @@
+<h1>Course Information</h1>
+
+<%= render @course %>
+
+<% if current_user.role != "student" && @course.enrollments.any? %>
+  <hr>
+  <h2>Enrollments for <%= @course.name %></h2>
+  <%=render @course.enrollments %>
+<% end %>
+
+
+
+<% if current_user.role != "student" %>
+
+  <h2>Add Enrollment:</h2>
+  <%= render 'enrollments/form', enrollment: @course.enrollments.build %>
+
+<% else %>
+
+  <%= render 'enrollments/form', enrollment: @course.enrollments.build %>
+
+<% end %>
+
+
+
+<div>
+  <br>
+  <% if current_user.role != "student" %>
+    <%= button_to "Edit this course", edit_course_path(@course), method: :get %><br>
+    <%= button_to "Destroy this course", @course, method: :delete %><br>
+  <% end %>
+  <a class="btn btn-secondary" href="/courses" role="button">Back To Courses</a>
+</div>

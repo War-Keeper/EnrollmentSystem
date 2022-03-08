@@ -1,0 +1,16 @@
+<h1>Editing course</h1>
+
+<% if current_user.role == "instructor" && @course.instructor_name == current_user.name %>
+  <%= render "form", course: @course %>
+<% elsif current_user.role == "admin" %>
+  <%= render "form", course: @course %>
+  <% else %>
+  <h2> Unautherized access to Course Editor</h2>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Show this course", @course %> |
+  <%= link_to "Back to courses", courses_path %>
+</div>

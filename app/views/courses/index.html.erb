@@ -1,0 +1,48 @@
+<p style="color: green"><%= notice %></p>
+<% if current_user.role == "student" %>
+  <h1>All Courses</h1>
+<% else %>
+  <h1>Your Courses</h1>
+<% end %>
+
+
+<div id="courses">
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Instructor</th>
+      <th>Weekdays</th>
+      <th>Time</th>
+      <th>Room</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= link_to course.course_code + ": " + course.name, course %></td>
+        <td><%= course.instructor_name %></td>
+        <td><%= course.weekday_one %>
+          <%= course.weekday_two unless course.weekday_two.nil? %>
+        </td>
+        <td><%= course.start_time.strftime("%H:%M") + " - " + course.end_time.strftime("%H:%M") %></td>
+        <td><%= course.room %></td>
+        <td><%= course.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div><br><br>
+
+<% if current_user.role != "student" %>
+  <a class="btn btn-secondary" href="/courses/new" role="button">New Course</a>
+
+<% else %>
+
+  <%= render 'courses/enrolled' %>
+
+<% end %>
+

@@ -1,0 +1,93 @@
+<%= form_with(model: course) do |form| %>
+  <% if course.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+        <% course.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <% if current_user.role == "instructor" %>
+
+  <div>
+    <% form.label :instructor_name, style: "display: block" %>
+    <% form.text_field :instructor_name %>
+  </div>
+
+  <% else %>
+  <div>
+    <%#= form.label :instructor_name, style: "display: block" %>
+    <%#= form.text_field :instructor_name %>
+
+    <% inst = []%>
+    <% @users = User.all%>
+    <% @users.each do |u|%>
+      <% if u.role == "instructor"%>
+      <% inst.push([u.name])%>
+      <% %>
+      <% end %>
+    <% end %>
+      <%= form.label :instructor_name, style: "display: block" %>
+      <%= form.select :instructor_name, options_for_select(inst), autofocus: true %>
+
+      </div>
+  <% end %>
+
+  <div>
+    <%= form.label :weekday_one, style: "display: block" %>
+    <%= form.select :weekday_one, options_for_select(Course.weekdays.map{|key, value| [key.titleize, Course.weekdays.key(value)]}, @course.weekday),  autofocus: true %>
+  </div>
+
+  <div>
+    <%= form.label :weekday_two, "Weekday two" + " (Leave blank if the course starts and ends on the same day)", style: "display: block" %>
+    <%= form.select :weekday_two, options_for_select(Course.weekdays.map{|key, value| [key.titleize, Course.weekdays.key(value)]}, @course.weekday), :include_blank =>true,  autofocus: true %>
+  </div>
+
+  <div>
+    <%= form.label :start_time, style: "display: block" %>
+    <%= form.time_select :start_time %>
+  </div>
+
+  <div>
+    <%= form.label :end_time, style: "display: block" %>
+    <%= form.time_select :end_time %>
+  </div>
+
+  <div>
+    <%= form.label :course_code, style: "display: block" %>
+    <%= form.text_field :course_code %>
+  </div>
+
+  <div>
+    <%= form.label :capacity, style: "display: block" %>
+    <%= form.number_field :capacity %>
+  </div>
+
+  <div>
+    <%= form.label :waitlist_capacity, style: "display: block" %>
+    <%= form.number_field :waitlist_capacity %>
+  </div>
+
+  <div>
+    <%= form.label :room, style: "display: block" %>
+    <%= form.text_field :room %>
+  </div><br>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

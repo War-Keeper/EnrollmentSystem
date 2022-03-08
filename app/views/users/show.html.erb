@@ -1,0 +1,35 @@
+<p style="color: green"><%= notice %></p>
+
+<% if current_user.role == "admin" %>
+
+  <% if @user.role == "admin" %>
+
+    <h1>Admin</h1>
+
+  <% elsif @user.role == "student" %>
+
+    <h1>Student</h1>
+
+  <% else %>
+
+    <h1>Instructor</h1>
+
+  <% end %>
+
+  <%= render @user %>
+  <!--<p>Find me in app/views/users/show.html.erb</p>-->
+  <div>
+    <br>
+    <%= button_to "Edit this user", edit_user_path(@user), method: :get %><br>
+
+    <% if @user.role != "admin" %>
+      <%= button_to "Destroy this user", @user, method: :delete %><br>
+    <% end %>
+
+<% else %>
+  <h1>Unauthorized access to User</h1>
+<% end %>
+
+
+  <a class="btn btn-secondary" href="../.." role="button">Back To Homepage</a>
+</div>

@@ -1,0 +1,45 @@
+<p id=”notice”><%= notice %></p>
+<h1>Student Enrollment System</h1>
+
+<% if current_user != nil %>
+  <a class="btn btn-primary" href="courses" role="button">Courses</a><br>
+
+  <% if current_user.role == "admin" %>
+    <br><br>
+    <h2>All Users</h2>
+    <div id="users"><br>
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>User ID</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Date of Birth</th>
+          <th>Phone Number</th>
+          <th>Department</th>
+          <th>Major</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @users = User.all %>
+        <% @users.each do |user| %>
+            <tr>
+              <td><%= link_to user.name, user %></td>
+              <td><%= user.user_id %></td>
+              <td><%= user.role %></td>
+              <td><%= user.email %></td>
+              <td><%= user.date_of_birth %></td>
+              <td><%= user.phone_number %></td>
+              <td><%= user.department %></td>
+              <td><%= user.major %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+  <p>
+
+  </p>
+<% end %>
